@@ -1,25 +1,26 @@
 .song-details {
   position: absolute;
   left: 20px;
-  line-height: 22px;
+  line-height: 80px;
 }
 
 .song-details .song-name {
   font-family: 'Proxima Nova', Georgia, sans-serif;
   color: #fff;
-  font-size: 14px;
+  font-size: 35px;
 }
 
 .song-details .artist-name {
   font-family: 'Proxima Thin', Georgia, sans-serif;
   color: #aaa;
-  font-size: 12px;
+  font-size: 30px;
 }
 
 .song-controls {
-  justify-content: center;
   display: flex;
-  margin-top: 20px;
+  justify-content: center; /* align horizontal */
+  align-items: center;
+  margin: 30px;
 }
 
 .forward,
@@ -38,13 +39,13 @@
 .song-player-container .play-btn {
   position: relative;
   top: -7px;
-  font-size: 40px;
+  font-size: 100px;
 }
 
 .song-player-container .pause-btn {
   position: relative;
   top: -7px;
-  font-size: 40px;
+  font-size:100px;
   margin: 0 5px;
 }
 
@@ -60,28 +61,32 @@
 
 .song-progress {
   width: 500px;
-  height: 4px;
+  height: 35px;
   background: rgb(64, 64, 64);;
   border-radius: 4px;
 }
 
+.song-progress:hover{
+  cursor: pointer;
+}
+
 .song-expired {
   margin: 0;
-  width: 100px;
-  height: 4px;
+  width: 0px;
+  height: 35px;
   background: #1db954;
   border-radius: 4px;
 }
 
 .timer-start {
-  font-size: 12px;
+  font-size: 40px;
   position: relative;
   top: -5px;
   left: -10px;
 }
 
 .timer-end {
-  font-size: 12px;
+  font-size: 40px;
   position: relative;
   top: -5px;
   left: 10px;

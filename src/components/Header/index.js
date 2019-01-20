@@ -7,7 +7,6 @@ const Header = () => {
   return(
     <div className='header'>
       <TrackSearch />
-      <UserDetails />
     </div>
   );
 };

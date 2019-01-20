@@ -39,7 +39,7 @@ const MainHeader = ({
       {viewType === 'playlist' && (
         <div className='playlist-title-container'>
           <div className='playlist-image-container'>
-            <img className='playlist-image' src={currentPlaylist.images[0] ? currentPlaylist.images[0].url : null} />
+            <img className='playlist-image' src='../../assets/عبد المجيب بنكيران.jpg' />
           </div>
           <div className='playlist-info-container'>
             <p className='playlist-text'>PLAYLIST</p>
@@ -73,7 +73,7 @@ const MainHeader = ({
       )}
 
       {(
-        headerTitle === 'Songs'||
+        headerTitle === 'القرآن الكريم'||
 				headerTitle === 'Recently Played' ||
 				headerTitle === 'Albums' ||
 				headerTitle === 'Artists') && (
@@ -86,7 +86,9 @@ const MainHeader = ({
                 {songPaused ? 'PLAY' : 'PAUSE'}
               </button>
             )}
-
+            <div className='playlist-image-container'>
+              <img className='playlist-image' src={require('../../images/benkiran.jpg')} />
+            </div>
           </div>
         )}
       {(headerTitle === 'Browse') && (

@@ -70,3 +70,29 @@ body {
   top: 50px;
   padding-bottom: 100px;
 }
+
+
+/** CSS für alle **/
+@media only screen and (max-width: 599px) {
+  p{
+    font-size: 50px;
+  }
+}
+
+@media only screen and (min-width: 600px ) {
+  p{
+    font-size: 40px;
+  }
+}
+
+@media only screen and (min-width: 980px ) {
+  p{
+    font-size: 30px;
+  }
+}
+
+@media only screen and (min-width: 1260px ) {
+  p{
+    font-size: 20px;
+  }
+}

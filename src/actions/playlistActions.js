@@ -71,24 +71,8 @@ export const fetchPlaylistSongsError = () => {
 
 export const fetchPlaylistSongs = (userId, playlistId, accessToken) => {
   return dispatch => {
-    const request = new Request(`https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`, {
-      headers: new Headers({
-        'Authorization': 'Bearer ' + accessToken
-      })
-    });
-
-    dispatch(fetchPlaylistSongsPending());
-
-    fetch(request).then(res => {
-      return res.json();
-    }).then(res => {
-      //remove duplicate tracks
-      res.items = uniqBy(res.items, (item) => {
-        return item.track.id;
-      });
-      dispatch(fetchPlaylistSongsSuccess(res.items));
-    }).catch(err => {
-      dispatch(fetchPlaylistSongsError(err));
-    });
+      dispatch(fetchPlaylistSongsSuccess([{
+        name: "test1"
+      }]));
   };
 };

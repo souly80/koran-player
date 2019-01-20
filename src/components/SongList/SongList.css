@@ -8,12 +8,11 @@
 .main-pause-play-btn {
   background: #1db954;
   font-family: 'Proxima Nova', Georgia, sans-serif;
+  font-size: 40px;
   color: #fff;
   border: none;
   border-radius: 20px;
   padding: 10px;
-  width: 100px;
-  font-size: 14px;
   letter-spacing: 1px;
   cursor: pointer;
   outline: none;
@@ -23,7 +22,7 @@
   list-style-type: none;
   border-bottom: 1px solid #666;
   display: flex;
-  line-height: 40px;
+  line-height: 120px;
   font-size: 14px;
   cursor: pointer;
 }
@@ -47,7 +46,7 @@
 
 .song-title,
 .song-title-header {
-  width: 300px;
+  width: 60%;
 }
 
 .song-album,
@@ -69,9 +68,11 @@
 }
 
 .user-song-item .play-song {
-  width: 40px;
+  width: 10%;
   opacity: 0;
-  text-align: center;
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center;
 }
 
 .user-song-item  .play-song .fa {
@@ -100,7 +101,10 @@
 
 .song-length,
 .song-length-header {
-	width: 60px;
+	width: 30%;
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center;
 }
 
 .song-added,
@@ -120,7 +124,19 @@
 
 .song-title,
 .song-title-header {
-	width: 250px;
+	width: 60%;
+}
+
+.song-title {
+  position: relative;
+  text-align: center;
+}
+.song-title > p {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin-top: -9px;
 }
 
 .song-title-header p,

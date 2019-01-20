@@ -1,0 +1,1 @@
+export const progressWidth = 500;

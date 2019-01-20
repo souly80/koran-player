@@ -34,7 +34,7 @@ const SideMenu = ({
         action: fetchRecentlyPlayed
       },
       {
-        name: 'Songs',
+        name: 'القرآن الكريم',
         action: fetchSongs
       },
       {

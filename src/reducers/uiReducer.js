@@ -1,5 +1,5 @@
 const defaultState = {
-  title: 'Songs'
+  title: 'القرآن الكريم'
 };
 
 export const uiReducer = (state = defaultState, action) => {

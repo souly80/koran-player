@@ -141,7 +141,7 @@ export const songsReducer = (state = defaultState, action) => {
     return {
       ...state,
       songPlaying: false,
-      songDetails: null,
+      //songDetails: null,
       timeElapsed: 0,
       songPaused: true
     };

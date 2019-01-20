@@ -4,7 +4,7 @@ import SongControls from '../SongControls';
 import VolumeControls from '../VolumeControls';
 import './Footer.css';
 
-const Footer = ({ stopSong, pauseSong, resumeSong, audioControl}) => {
+const Footer = ({ stopSong, pauseSong, resumeSong, audioControl, getCurrentTime, setAudioTime}) => {
   return(
     <div className='footer'>
       <SongControls
@@ -12,8 +12,9 @@ const Footer = ({ stopSong, pauseSong, resumeSong, audioControl}) => {
         pauseSong={ pauseSong }
         resumeSong={ resumeSong }
         audioControl={ audioControl }
+        getCurrentTime={getCurrentTime}
+        setAudioTime={setAudioTime}
       />
-      <VolumeControls />
     </div>
   );
 };

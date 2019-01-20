@@ -4,21 +4,48 @@ import './UserPlaylists.css';
 
 class UserPlaylists extends Component {
 
-  componentWillReceiveProps (nextProps) {
-    if(nextProps.userId !== '' && nextProps.token !== '') {
-      this.props.fetchPlaylistsMenu(nextProps.userId, nextProps.token);
+  constructor() {
+    super();
+    this.state = {
+      selectedMenu: "سورة"
+    }
+  }
+
+  clickHandler = (e) => {
+    this.setState({
+        selectedMenu: e.target.innerText
+    });
+    switch(e.target.innerText) {
+        case "سورة": {
+            this.props.fetchSongs();
+            break;
+        }
+        case "أحزاب": {
+            this.props.fetchAhzab();
+             break;
+        }
+        case "اثمان": {
+            this.props.fetchAthman();
+            break;
+        }
     }
   }
 
   renderPlaylists() {
-    return this.props.playlistMenu.map(playlist => {
-      const getPlaylistSongs = () => {
-        this.props.fetchPlaylistSongs(playlist.owner.id, playlist.id, this.props.token);
-        this.props.updateHeaderTitle(playlist.name);
-      };
+    const playlistMenu = [
+        {
+            name: "سورة",
+        },
+        {
+            name: "أحزاب",
+        },
+        {
+            name: "اثمان",
+        }]
+    return playlistMenu.map(playlist => {
 
       return (
-        <li onClick={ getPlaylistSongs } className={this.props.title === playlist.name ? 'active side-menu-item' : 'side-menu-item'} key={ playlist.id }>
+        <li onClick={(e) => this.clickHandler(e)} className={this.state.selectedMenu === playlist.name ? 'active side-menu-item' : 'side-menu-item'}  key={ playlist.name }>
           { playlist.name }
         </li>
       );
@@ -29,9 +56,9 @@ class UserPlaylists extends Component {
 
     return (
       <div className='user-playlist-container'>
-        <h3 className='user-playlist-header'>Playlists</h3>
+        <h3 className='user-playlist-header'>مصحف مقسم</h3>
         {
-          this.props.playlistMenu && this.renderPlaylists()
+          this.renderPlaylists()
         }
       </div>
     );

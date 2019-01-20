@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
 
   return {
     songName: state.songsReducer.songDetails ? state.songsReducer.songDetails.name : '',
-    artistName: state.songsReducer.songDetails ? state.songsReducer.songDetails.artists[0].name : '',
+    artistName: state.songsReducer.songDetails ? state.songsReducer.songDetails.artist : '',
     songPlaying: state.songsReducer.songPlaying,
     timeElapsed: state.songsReducer.timeElapsed,
     songPaused: state.songsReducer.songPaused,
