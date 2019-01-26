@@ -43,7 +43,6 @@ body {
     margin: 0 auto;
     padding: 0;
 }
-
 .app-container {
   display: flex;
   position: relative;
@@ -68,7 +67,7 @@ body {
 .main-section-container {
   position: relative;
   top: 50px;
-  padding-bottom: 100px;
+  padding-bottom: 300px;
 }
 
 
@@ -95,4 +94,17 @@ body {
   p{
     font-size: 20px;
   }
+}
+
+.fixTopBar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: green;
+  z-index: 1;
+  margin: 10px;
+}
+
+.tab-active {
+  background: red !important;
 }

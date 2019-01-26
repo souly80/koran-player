@@ -9,7 +9,7 @@ import {progressWidth} from "../../utils/constants";
 class SongControls extends Component {
 
 	state = {
-	  timeElapsed: this.props.timeElapsed
+		loop: false,
 	};
 
 	componentWillReceiveProps(nextProps) {
@@ -23,26 +23,23 @@ class SongControls extends Component {
 	    this.calculateTime();
 	  }
 
-	  this.setState({
-	    timeElapsed: nextProps.timeElapsed
-	  });
-
 	}
 
 	calculateTime = () => {
-
 	  const intervalId  = setInterval(() => {
           const duration_ms = this.props.songDetails ? this.props.songDetails.duration : 0;
-
-          if(this.props.getCurrentTime() >= duration_ms ) {
-              this.setState({
-                  timeElapsed: 0
-              });
-	      clearInterval(this.state.intervalId);
-	      this.props.stopSong();
-	    } else if(!this.props.songPaused) {
-	      this.props.increaseSongTime(this.state.timeElapsed + 1);
-	    }
+          let currentTime = this.props.getCurrentTime();
+          if(!isNaN(currentTime)) {
+              if (currentTime < duration_ms && currentTime !== 0) {
+                  if (!this.props.songPaused) {
+                      this.props.increaseSongTime(currentTime);
+                  }
+              } else {
+                  this.props.increaseSongTime(0);
+                  clearInterval(this.state.intervalId);
+                  this.state.loop ? this.playSong() : this.nextSong();
+              }
+          }
 	  }, 1000);
 
 	  this.setState({
@@ -67,14 +64,24 @@ class SongControls extends Component {
 	nextSong = () => {
 	  const { songs , audioControl} = this.props;
 	  let currentIndex = this.getSongIndex();
-	  currentIndex === songs.length - 1 ? audioControl(songs[0]) : audioControl(songs[currentIndex + 1]);
+	  currentIndex === songs.length - 1 ? audioControl(songs[0], this.state.loop) : audioControl(songs[currentIndex + 1], this.state.loop);
 	}
 
 	prevSong = () => {
 	  const { songs, audioControl } = this.props;
 	  let currentIndex = this.getSongIndex();
-	  currentIndex === 0 ? audioControl(songs[songs.length - 1]) : audioControl(songs[currentIndex - 1]);
+	  currentIndex === 0 ? audioControl(songs[songs.length - 1], this.state.loop) : audioControl(songs[currentIndex - 1], this.state.loop);
 	}
+
+	loop = () => {
+		this.setState({loop: !this.state.loop});
+	}
+
+    playSong = () => {
+        const { songs, audioControl } = this.props;
+        let currentIndex = this.getSongIndex();
+        audioControl(songs[currentIndex], this.state.loop);
+    }
 
 	playHandhler = () => {
         if (!this.props.songPaused)
@@ -111,6 +118,8 @@ class SongControls extends Component {
         const seconds = parseInt(duration) //because moment js dont know to handle number in string format
         var format =  Math.floor(moment.duration(seconds,'seconds').asHours()) + ':' + moment.duration(seconds,'seconds').minutes() + ':' + moment.duration(seconds,'seconds').seconds();
 
+        const replayClassName = this.state.loop ? "loop-green" : "forward";
+
         return (
 	    <div className='song-player-container'>
 
@@ -119,6 +128,10 @@ class SongControls extends Component {
 	      </div>
 
 	      <div className='song-controls'>
+
+			<div onClick={this.nextSong} className='next-song' >
+			  <i className="fa fa-redo forward" aria-hidden="true" style={{"font-size": "100px", "margin-right": "100px"}}/>
+			</div>
 
 	        <div onClick={this.prevSong} className='reverse-song'>
 	          <i className="fa fa-step-backward reverse" aria-hidden="true"  style={{"font-size": "100px"}}/>
@@ -129,8 +142,12 @@ class SongControls extends Component {
 	        </div>
 
 	        <div onClick={this.nextSong} className='next-song' >
-	          <i className="fa fa-step-forward forward" aria-hidden="true" style={{"font-size": "100px"}}/>
+	          <i className="fa fa-step-forward forward" aria-hidden="true" style={{"font-size": "100px", "margin-right": "100px"}}/>
 	        </div>
+
+			  <div onClick={this.loop} className='next-song' >
+				  <i className= { replayClassName + " fa fa-random"} aria-hidden="true" style={{"font-size": "100px"}}/>
+			  </div>
 
 	      </div>
 

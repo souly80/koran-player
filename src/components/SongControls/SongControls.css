@@ -38,7 +38,6 @@
 
 .song-player-container .play-btn {
   position: relative;
-  top: -7px;
   font-size: 100px;
 }
 
@@ -90,4 +89,8 @@
   position: relative;
   top: -5px;
   left: 10px;
+}
+
+.loop-green{
+  background: green;
 }

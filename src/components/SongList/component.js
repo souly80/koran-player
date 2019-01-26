@@ -25,11 +25,28 @@ class SongList extends Component {
         <li onClick={() => {(song.id === this.props.songId) && this.props.songPlaying && this.props.songPaused ? this.props.resumeSong() :
             this.props.songPlaying && !this.props.songPaused && (song.id === this.props.songId)  ? this.props.pauseSong() :
                 this.props.audioControl(song); } } className={song.id === this.props.songId ? 'active user-song-item' : 'user-song-item'} key={ i }>
+            {
+                song.id !== this.props.songId &&
+                <i style={{"font-size":"40px"}} class="fa fa-music" aria-hidden="true"></i>
+            }
           <div  className='play-song'>
             <i style={{"font-size":"70px", "color":"green"}} className={`fa ${buttonClass} play-btn`} aria-hidden="true"/>
+
           </div>
 
-          {this.props.viewType !== 'songs' && (
+          <div style={{width: "15%"}}>
+              {
+                  song.id === this.props.songId && !this.props.songPaused &&
+                  <div class="playing">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                  </div>
+              }
+          </div>
+        {this.props.viewType !== 'songs' && (
             <p className='add-song' onClick={() => {this.props.addSongToLibrary(this.props.token, song.id);}}>
               {this.props.songAddedId === song.id ?
                 (<i className="fa fa-check add-song" aria-hidden="true" />) :

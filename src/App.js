@@ -15,38 +15,62 @@ import ArtWork from './components/ArtWork';
 import MainHeader from './components/MainHeader';
 import SideMenu from './components/SideMenu';
 import TabsWrappedLabel from "./components/tabs";
+import {Howl, Howler} from 'howler';
 
 class App extends Component {
 
-	static audio;
+	//static audio;
+	static sound;
+
+	constructor() {
+		super();
+	}
+
+	newSound = (song, loop) => {
+        this.sound = new Howl({
+            src: [require(`../assets/${song.url}`)],
+            autoplay: true,
+            //loop,
+            html5: true,
+            volume: 0.9,
+            onend: function() {
+                console.log('Finished!');
+            },
+            onplay: () => {
+                this.props.playSong(song);
+
+            }
+        })
+		this.sound.play;
+	};
 
     componentDidMount () {
         this.props.fetchSongs();
     }
 	componentWillReceiveProps(nextProps) {
-	  if(this.audio !== undefined) {
-	    this.audio.volume = nextProps.volume / 100;
-	  }
+	  //if(this.audio !== undefined) {
+	    //this.audio.volume = nextProps.volume / 100;
+	  //}
 	}
 
 	stopSong = () => {
-	  if(this.audio) {
+	  if(this.sound) {
 	    this.props.stopSong();
-	    this.audio.pause();
+	    this.sound.pause();
 	  }
 	}
 
 	pauseSong = () => {
-	  if(this.audio) {
+	  if(this.sound) {
 	    this.props.pauseSong();
-	    this.audio.pause();
+	    this.sound.pause();
 	  }
 	}
 
 	resumeSong = () => {
-	  if(this.audio) {
+	  if(this.sound) {
 	    this.props.resumeSong();
-          this.audio.play();
+          this.sound.play();
 	  }
 	  else {
 	  	this.audioControl(this.props.songs[0]);
@@ -54,26 +78,30 @@ class App extends Component {
 	}
 
 	setAudioTime = (time) => {
-		this.audio.currentTime = time;
+		this.sound.seek(time);
 	}
 
-	audioControl = (song) => {
+	mapsAudio = [];
+
+	audioControl = (song, loop) => {
 	  const { playSong, stopSong } = this.props;
 
-	  if(this.audio === undefined){
-	    playSong(song);
-	    this.audio = new Audio(require(`../assets/${song.url}`));
-	    this.audio.play();
-	  } else {
+	  if(this.sound === undefined){
+	    //playSong(song);
+          this.newSound(song, loop);
+      } else {
 	    stopSong();
-	    this.audio.pause();
-	    playSong(song);
-          this.audio = new Audio(require(`../assets/${song.url}`));
-          this.audio.play();
-	  }
+	    this.sound.pause();
+	    //playSong(song);
+          this.newSound(song, loop);
+
+      }
+        /*this.audio.addEventListener("loadeddata", function(obj) {
+            console.log(obj.currentTarget.duration);
+        });*/
 	}
 	getCurrentTime = () => {
-		return this.audio ? this.audio.currentTime : 0;
+		return this.sound ? this.sound.seek() : 0;
 	}
 
 	render() {
