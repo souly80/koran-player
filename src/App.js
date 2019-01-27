@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchUser } from './actions/userActions';
 import { setToken } from './actions/tokenActions';
-import {playSong, stopSong, pauseSong, resumeSong, fetchSongs, fetchAhzab, fetchAthman} from './actions/songActions';
+import {fetchSongsPending, fetchSongsSuccess, playSong, stopSong, pauseSong, resumeSong, fetchSongs, fetchAhzab, fetchAthman} from './actions/songActions';
 import './App.css';
 
 import Header from './components/Header';
@@ -22,11 +22,9 @@ class App extends Component {
 	//static audio;
 	static sound;
 
-	constructor() {
-		super();
-	}
 
 	newSound = (song, loop) => {
+		this.props.fetchSongsPending();
         this.sound = new Howl({
             src: [require(`../assets/${song.url}`)],
             autoplay: true,
@@ -37,6 +35,7 @@ class App extends Component {
                 console.log('Finished!');
             },
             onplay: () => {
+            	this.props.fetchSongsSuccess();
                 this.props.playSong(song);
 
             }
@@ -96,9 +95,10 @@ class App extends Component {
           this.newSound(song, loop);
 
       }
-        /*this.audio.addEventListener("loadeddata", function(obj) {
+      const audio = new Audio(require(`../assets/${song.url}`))
+        audio.addEventListener("loadeddata", function(obj) {
             console.log(obj.currentTarget.duration);
-        });*/
+        });
 	}
 	getCurrentTime = () => {
 		return this.sound ? this.sound.seek() : 0;
@@ -107,39 +107,52 @@ class App extends Component {
 	render() {
 	  return (
 	  	<div>
-			<TabsWrappedLabel {...this.props} />
-			<div className='App'>
-			  <div className='app-container'>
-				<div className='main-section'>
-				  <div className='main-section-container'>
-					<MainHeader
-					  pauseSong={ this.pauseSong }
-					  resumeSong={ this.resumeSong }
+            {
+                this.props.loading ?
+					<Loader
+						type="Puff"
+						color="#00BFFF"
+						height="100"
+						width="100"
 					/>
-					<MainView
-					  pauseSong={this.pauseSong}
-					  resumeSong={ this.resumeSong }
-					  audioControl={ this.audioControl }
-					  songs={this.props.songs}
-					/>
-				  </div>
-				</div>
-				<Footer
-				  stopSong={ this.stopSong }
-				  pauseSong={ this.pauseSong }
-				  resumeSong={ this.resumeSong }
-				  audioControl={ this.audioControl }
-				  getCurrentTime={ this.getCurrentTime }
-				  setAudioTime={this.setAudioTime}
-				/>
-			  </div>
-			</div>
+                    :
+					<div>
+						<TabsWrappedLabel {...this.props} />
+						<div className='App'>
+							<div className='app-container'>
+								<div className='main-section'>
+									<div className='main-section-container'>
+										<MainHeader
+											pauseSong={this.pauseSong}
+											resumeSong={this.resumeSong}
+										/>
+										<MainView
+											pauseSong={this.pauseSong}
+											resumeSong={this.resumeSong}
+											audioControl={this.audioControl}
+											songs={this.props.songs}
+										/>
+									</div>
+								</div>
+								<Footer
+									stopSong={this.stopSong}
+									pauseSong={this.pauseSong}
+									resumeSong={this.resumeSong}
+									audioControl={this.audioControl}
+									getCurrentTime={this.getCurrentTime}
+									setAudioTime={this.setAudioTime}
+								/>
+							</div>
+						</div>
+					</div>
+            }
 		</div>
 	  );
 	}
 }
 
 App.propTypes = {
+  loading: PropTypes.bool,
   token: PropTypes.string,
   fetchUser: PropTypes.func,
   setToken: PropTypes.func,
@@ -155,7 +168,7 @@ const mapStateToProps = (state) => {
   return {
     token: state.tokenReducer.token,
     volume: state.soundReducer.volume,
-  	songs: state.songsReducer.songs ? state.songsReducer.songs : '',
+      songs: state.songsReducer.songs ? state.songsReducer.songs : '',
   };
 
 };
@@ -169,6 +182,8 @@ const mapDispatchToProps = dispatch => {
     stopSong,
     pauseSong,
     resumeSong,
+      fetchSongsPending,
+      fetchSongsSuccess,
 	  fetchSongs,
       fetchAhzab,
       fetchAthman

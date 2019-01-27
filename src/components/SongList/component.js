@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import './SongList.css';
-
-
-
+import Loader from 'react-loader-spinner'
 
 class SongList extends Component {
 
@@ -74,9 +72,18 @@ class SongList extends Component {
       <div>
         <div className='song-header-container'>
         </div>
-        {
-          this.props.songs && !this.props.fetchSongsPending && !this.props.fetchPlaylistSongsPending && this.renderSongs()
-        }
+          {
+              this.props.fetchSongsPending &&
+              <Loader
+                  type="Watch"
+                  color="green"
+                  height="100"
+                  width="100"
+              />
+          }
+          {
+              this.props.songs && !this.props.fetchSongsPending && !this.props.fetchPlaylistSongsPending && this.renderSongs()
+          }
 
       </div>
     );

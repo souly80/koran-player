@@ -124,8 +124,14 @@ export const songsReducer = (state = defaultState, action) => {
     return {
       ...state,
       fetchArtistSongsError: true,
-      fetchArtistSongsPending: false
+      fetchArtistSongsPending: false,
+        loading: false,
     };
+      case "FETCH_SONG":
+          return {
+              ...state,
+              loading: true,
+          };
 
   case "PLAY_SONG":
     return {
@@ -134,7 +140,8 @@ export const songsReducer = (state = defaultState, action) => {
       songDetails: action.song,
       songId: action.song.id,
       timeElapsed: 0,
-      songPaused: false
+      songPaused: false,
+        loading: false,
     };
 
   case "STOP_SONG":
