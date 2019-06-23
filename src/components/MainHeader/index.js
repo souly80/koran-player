@@ -12,7 +12,6 @@ const mapStateToProps = (state) => {
     headerTitle: state.uiReducer.title,
     viewType: state.songsReducer.viewType,
     playlists: state.playlistReducer.playlists,
-    artists: state.artistsReducer.artistList ? state.artistsReducer.artistList.artists : [],
     token: state.tokenReducer.token
   };
 

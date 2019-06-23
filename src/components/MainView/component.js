@@ -1,26 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import SongList from '../SongList';
-import AlbumList from '../AlbumList';
-import ArtistList from '../ArtistList';
-import BrowseView from '../BrowseView';
 import './MainView.css';
 
-const MainView = ({ headerTitle, audioControl, resumeSong, pauseSong, songs }) => {
+const MainView = ({audioControl, resumeSong, pauseSong, songs, typeOfKoran }) => {
 
   return (
     <div>
-      <SongList songs={songs} resumeSong={ resumeSong } pauseSong={ pauseSong } audioControl={ audioControl } />
+      <SongList typeOfKoran={typeOfKoran} songs={songs} resumeSong={ resumeSong } pauseSong={ pauseSong } audioControl={ audioControl } />
     </div>
   );
 
-};
-
-MainView.propTypes = {
-  headerTitle: PropTypes.string,
-  audioControl: PropTypes.func,
-  resumeSong: PropTypes.func,
-  pauseSong: PropTypes.func
 };
 
 export default MainView;

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
 import './SongList.css';
 import Loader from 'react-loader-spinner'
 
@@ -25,7 +23,7 @@ class SongList extends Component {
                 this.props.audioControl(song); } } className={song.id === this.props.songId ? 'active user-song-item' : 'user-song-item'} key={ i }>
             {
                 song.id !== this.props.songId &&
-                <i style={{"font-size":"40px"}} class="fa fa-music" aria-hidden="true"></i>
+                <i style={{"font-size":"40px"}} className="fa fa-music" aria-hidden="true"></i>
             }
           <div  className='play-song'>
             <i style={{"font-size":"70px", "color":"green"}} className={`fa ${buttonClass} play-btn`} aria-hidden="true"/>
@@ -89,29 +87,5 @@ class SongList extends Component {
     );
   }
 }
-
-SongList.propTypes = {
-  viewType: PropTypes.string,
-  token: PropTypes.string,
-  songAddedId: PropTypes.string,
-  songId: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]),
-  songs: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array
-  ]),
-  fetchSongsError: PropTypes.bool,
-  fetchSongsPending: PropTypes.bool,
-  fetchPlaylistSongsPending: PropTypes.bool,
-  fetchSongs: PropTypes.func,
-  audioControl: PropTypes.func,
-  songPaused: PropTypes.bool,
-  songPlaying: PropTypes.bool,
-  resumeSong: PropTypes.func,
-  pauseSong: PropTypes.func,
-  addSongToLibrary: PropTypes.func,
-};
 
 export default SongList;

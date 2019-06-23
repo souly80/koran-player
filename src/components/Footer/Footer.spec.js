@@ -15,10 +15,4 @@ describe('Footer', () => {
   it('Footer should render', () => {
     expect(wrapper).to.have.length(1);
   });
-
-  it('Footer should render both SongControls and VolumeControls', () => {
-    const wrapper = shallow(<Footer />);
-    expect(wrapper.children()).to.have.length(2);
-  });
-
 });

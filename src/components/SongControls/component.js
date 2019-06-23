@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import './SongControls.css';
 import {getDurationFotmatted} from "../../utils/utils";
@@ -163,20 +162,4 @@ class SongControls extends Component {
 	  );
 	}
 }
-
-SongControls.propTypes = {
-  timeElapsed: PropTypes.number,
-  songPlaying: PropTypes.bool,
-  songPaused: PropTypes.bool,
-  songName: PropTypes.string,
-  artistName: PropTypes.string,
-  stopSong: PropTypes.func,
-  resumeSong: PropTypes.func,
-  increaseSongTime: PropTypes.func,
-  pauseSong: PropTypes.func,
-  songs: PropTypes.array,
-  songDetails: PropTypes.object,
-  audioControl: PropTypes.func
-};
-
 export default SongControls;

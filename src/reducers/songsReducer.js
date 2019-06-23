@@ -1,10 +1,13 @@
+import {SURAT_TYPE} from "../actions/songActions";
+
 const defaultState = {
   fetchSongsPending: true,
   songPlaying: false,
   timeElapsed: 0,
   songId: 0,
   viewType:'songs',
-  songPaused: true
+  songPaused: true,
+    typeOfKoran: SURAT_TYPE
 };
 
 export const songsReducer = (state = defaultState, action) => {
@@ -27,6 +30,7 @@ export const songsReducer = (state = defaultState, action) => {
     return {
       ...state,
       songs: action.songs,
+        typeOfKoran: action.typeOfKoran,
       fetchSongsError: false,
       fetchSongsPending: false,
       viewType: 'songs'

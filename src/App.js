@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchUser } from './actions/userActions';
 import { setToken } from './actions/tokenActions';
-import {fetchSongsPending, fetchSongsSuccess, playSong, stopSong, pauseSong, resumeSong, fetchSongs, fetchAhzab, fetchAthman} from './actions/songActions';
+import {fetchSongsPending, fetchSongsSuccess, playSong, stopSong, pauseSong, resumeSong, fetchSurat, fetchAhzab, fetchAthman} from './actions/songActions';
 import './App.css';
 
-import Header from './components/Header';
 import Footer from './components/Footer';
-import UserPlaylists from './components/UserPlaylists';
 import MainView from './components/MainView';
-import ArtWork from './components/ArtWork';
 import MainHeader from './components/MainHeader';
-import SideMenu from './components/SideMenu';
 import TabsWrappedLabel from "./components/tabs";
-import {Howl, Howler} from 'howler';
+import {Howl} from 'howler';
 
 class App extends Component {
 
@@ -23,7 +17,7 @@ class App extends Component {
 	static sound;
 
 
-	newSound = (song, loop) => {
+	newSound = (song) => {
 		this.props.fetchSongsPending();
         this.sound = new Howl({
             src: [require(`../assets/${song.url}`)],
@@ -44,13 +38,8 @@ class App extends Component {
 	};
 
     componentDidMount () {
-        this.props.fetchSongs();
+        this.props.fetchSurat();
     }
-	componentWillReceiveProps(nextProps) {
-	  //if(this.audio !== undefined) {
-	    //this.audio.volume = nextProps.volume / 100;
-	  //}
-	}
 
 	stopSong = () => {
 	  if(this.sound) {
@@ -131,6 +120,7 @@ class App extends Component {
 											resumeSong={this.resumeSong}
 											audioControl={this.audioControl}
 											songs={this.props.songs}
+                                            typeOfKoran={this.props.typeOfKoran}
 										/>
 									</div>
 								</div>
@@ -151,24 +141,13 @@ class App extends Component {
 	}
 }
 
-App.propTypes = {
-  loading: PropTypes.bool,
-  token: PropTypes.string,
-  fetchUser: PropTypes.func,
-  setToken: PropTypes.func,
-  pauseSong: PropTypes.func,
-  playSong: PropTypes.func,
-  stopSong: PropTypes.func,
-  resumeSong: PropTypes.func,
-  volume: PropTypes.number
-};
-
 const mapStateToProps = (state) => {
 
   return {
     token: state.tokenReducer.token,
     volume: state.soundReducer.volume,
       songs: state.songsReducer.songs ? state.songsReducer.songs : '',
+      typeOfKoran: state.songsReducer.typeOfKoran,
   };
 
 };
@@ -176,7 +155,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
 
   return bindActionCreators({
-    fetchUser,
     setToken,
     playSong,
     stopSong,
@@ -184,7 +162,7 @@ const mapDispatchToProps = dispatch => {
     resumeSong,
       fetchSongsPending,
       fetchSongsSuccess,
-	  fetchSongs,
+      fetchSurat,
       fetchAhzab,
       fetchAthman
   },dispatch);

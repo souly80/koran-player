@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './MainHeader.css';
 
 const MainHeader = ({
@@ -87,7 +86,7 @@ const MainHeader = ({
               </button>
             )}
             <div className='playlist-image-container'>
-              <img className='playlist-image' src={require('../../images/benkiran.jpg')} />
+              <img className='playlist-image' src={require('../../images/benkiran.png')} />
             </div>
           </div>
         )}
@@ -105,23 +104,6 @@ const MainHeader = ({
 
   );
 
-};
-
-MainHeader.propTypes = {
-  pauseSong: PropTypes.func,
-  resumeSong: PropTypes.func,
-  fetchCategories: PropTypes.func,
-  fetchNewReleases: PropTypes.func,
-  fetchFeatured: PropTypes.func,
-  updateHeaderTitle: PropTypes.func,
-  updateViewType: PropTypes.func,
-  songPaused: PropTypes.bool,
-  headerTitle: PropTypes.string,
-  viewType: PropTypes.string,
-  playlists: PropTypes.array,
-  playlistMenu: PropTypes.array,
-  token: PropTypes.string,
-  artists: PropTypes.array,
 };
 
 export default MainHeader;

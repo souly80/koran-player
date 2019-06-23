@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -14,10 +13,6 @@ function TabContainer(props) {
         </Typography>
     );
 }
-
-TabContainer.propTypes = {
-    children: PropTypes.node.isRequired,
-};
 
 function LinkTab(props) {
     return <Tab component="a" onClick={event => event.preventDefault()} {...props} />;
@@ -50,10 +45,10 @@ class NavTabs extends React.Component {
                         <Tabs  className="fixTopBar" variant="fullWidth" value={value} onChange={this.handleChange}>
                             <LinkTab className={value === 0 ? "tab-active" : ""} style={{"font-size": "50px"}}  label="سورة" href="page1" />
                             <LinkTab className={value === 1 ? "tab-active" : ""} style={{"font-size": "50px"}}  label="أحزاب" href="page2" />
-                            <LinkTab className={value === 2 ? "tab-active" : ""} style={{"font-size": "50px"}}  label="اثمان" href="page3" />
+             Tabs           <LinkTab className={value === 2 ? "tab-active" : ""} style={{"font-size": "50px"}}  label="اثمان" href="page3" />
                         </Tabs>
                     </AppBar>
-                    {value === 0 && this.props.fetchSongs()}
+                    {value === 0 && this.props.fetchSurat()}
                     {value === 1 && this.props.fetchAhzab()}
                     {value === 2 && this.props.fetchAthman()}
                 </div>
@@ -61,9 +56,5 @@ class NavTabs extends React.Component {
         );
     }
 }
-
-NavTabs.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(NavTabs);
